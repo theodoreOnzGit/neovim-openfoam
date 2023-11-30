@@ -12,7 +12,7 @@ as is, click AT YOUR OWN RISK, if you do not agree to this,
 DO NOT CLICK ANY HYPERLINK)
 
 Though, I saw no one do the same for neovim and OpenFOAM, so I decided 
-to do one up myself since I use neovim so often.
+to do one up myself since I use neovim so often. 
 
 
 ## Dependencies 
@@ -43,6 +43,8 @@ Tmux is super convenient to use for terminal users:
 sudo pacman -S tmux
 ```
 
+
+
 ## tl;dr
 
 If you just want neovim openfoam set up as is, run in this 
@@ -51,6 +53,13 @@ directory:
 ```bash
 nvim -u ./foam-init.lua
 ```
+
+Only thing is, DO NOT install lsp servers for C++ or C via mason.
+
+# If you want a more in depth explanation on Setup
+
+The basic idea is to adapt using ccls in vscode for neovim. A 
+YouTuber has [done this here](https://www.youtube.com/watch?v=IR6pfkqjbw8).
 
 ## Setting Up Neovim with Two or More Config Files
 

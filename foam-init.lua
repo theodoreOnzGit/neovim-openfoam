@@ -147,6 +147,13 @@ local plugins = {
     'hrsh7th/vim-vsnip',
     'hrsh7th/vim-vsnip-integ',
 	'rafamadriz/friendly-snippets',
+
+	-- hop nvim 
+	{
+		'smoka7/hop.nvim',
+		version = '*',
+		opts = {},
+	}
 }
 local opts = {}
 
@@ -277,3 +284,17 @@ colorscheme gruvbox
 set background=dark
 let g:airline_theme='dark'
 ]])
+
+-- hop nvim
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
+
+vim.keymap.set('','f', function()
+	hop.hint_words({direction = directions.AFTERCURSOR})
+end
+, {remap=true})
+
+
+
+-- for ccls setup 
+require("./lua/ccls-setup")

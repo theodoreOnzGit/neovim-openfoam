@@ -1,0 +1,2 @@
+-- test print
+-- print("hello from ccls")

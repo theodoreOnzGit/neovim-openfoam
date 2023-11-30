@@ -20,7 +20,9 @@ fi
 copy_nvimconfig_to_openfoam() {
 	rm $WM_PROJECT_DIR/foam-init.lua
 	rm -r $WM_PROJECT_DIR/lua
+	rm $WM_PROJECT_DIR/setup.sh
 	cp foam-init.lua $WM_PROJECT_DIR
+	cp setup.sh $WM_PROJECT_DIR
 	cp -r ./lua/ $WM_PROJECT_DIR
 }
 

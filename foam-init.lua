@@ -109,6 +109,7 @@ if openfoam_env_set then
 		'preservim/nerdtree',
 		'morhetz/gruvbox',
 		{'kepano/flexoki-neovim', name = 'flexoki'},
+		'folke/tokyonight.nvim',
 		'williamboman/mason.nvim',
 		'williamboman/mason-lspconfig.nvim',
 		'neovim/nvim-lspconfig',
@@ -333,7 +334,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.cmd([[
 "colorscheme gruvbox
 "set background=dark
-colorscheme flexoki-dark
+"colorscheme flexoki-dark
+colorscheme tokyonight-storm
 let g:airline_theme='dark'
 set cc=75
 ]])

@@ -7,7 +7,6 @@ vim.opt.packpath:append(vim.fn.expand('./nvim-config/packpath'))
 -- also don't use existing plugins 
 vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim'))
 vim.opt.runtimepath:remove(vim.fn.expand('~/.local/share/nvim'))
-vim.opt.packpath:append(vim.fn.expand('~/nvim-config/share/nvim'))
 
 
 -- lazy plugin manager
@@ -205,7 +204,11 @@ nnoremap <leader>q <cmd>Telescope harpoon marks<cr>
 require("mason").setup({
     install_root_dir = vim.fn.expand('./nvim-config/share/nvim') .. "/mason",
 })
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup{
+    ensure_installed = { "lua_ls" },
+}
+vim.opt.runtimepath:append(vim.fn.expand('./nvim-config/share/nvim') .. "/mason")
+vim.opt.packpath:append(vim.fn.expand('./nvim-config/share/nvim') .. "/mason")
 
 -- lsp settings 
 local lsp = require('lsp-zero').preset({})
@@ -217,11 +220,11 @@ end)
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
-lsp.setup()
 
 -- for typst
 require 'lspconfig'.typst_lsp.setup {}
 
+lsp.setup()
 -- for completion
 
 local cmp = require 'cmp'

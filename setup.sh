@@ -7,7 +7,7 @@
 if test -z "$WM_PROJECT_DIR"
 then 
 	openfoam_env_set=false
-	echo "openfoam env not set"
+	echo "please source the openfoam etc/bashrc file first"
 else 
 	openfoam_env_set=true
 	# source it again to be safe
@@ -29,7 +29,7 @@ if $openfoam_env_set
 then
 	copy_nvimconfig_to_openfoam
 	nvfoam() {
-		nvim -u $WM_PROJECT_DIR/foam-init.lua $WM_PROJECT_DIR/README.md
+		cd $WM_PROJECT_DIR && nvim -u $WM_PROJECT_DIR/foam-init.lua $WM_PROJECT_DIR/README.md
 	}
 	echo "use nvfoam to start neovim in openfoam environment"
 fi

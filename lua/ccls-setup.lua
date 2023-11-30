@@ -16,14 +16,22 @@ end
 -- define important functions first
 local function cacheDirName()
 	-- note, the .. Concatenates strings
-	local name = vim.fn.expand('$WM_PROJECT_DIR') .. 'build' .. vim.fn.expand('$WM_OPTIONS')
-	print("cache dir: ", name)
-	return name;
+	local cache_dir = vim.fn.expand('$WM_PROJECT_DIR') .. '/build/' .. vim.fn.expand('$WM_OPTIONS')
+	.. '/ccls-cache'
+	print("cache dir: ", cache_dir)
+	return cache_dir;
+end
+
+local function compilationDatabaseDirectory()
+	local compile_dir = vim.fn.expand('$WM_PROJECT_DIR') .. '/build/' .. vim.fn.expand('$WM_OPTIONS')
+	print("compile dir: ", compile_dir)
+	return compile_dir;
 end
 
 if openfoam_env_set then
 	print("openfoam environment set, setting up ccls openfoam server")
 	local cache_dir_name = cacheDirName()
+	local compile_dir_name = compilationDatabaseDirectory()
 	require("ccls").setup {
 		lsp = {
 			-- check :help vim.lsp.start for config options

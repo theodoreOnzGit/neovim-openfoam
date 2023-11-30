@@ -60,7 +60,11 @@ source setup.sh
 ```
 
 It's not 100% working yet, my ccls cache directories are not 
-set correctly
+set to the same directory as vs-code but it does its job. Sort of.
+The caching process takes very long, it can be 30 min to 1 hr and it 
+will generate a cache file on the order of 1.5 GB because OpenFOAM is 
+that big. Nevertheless, you will be able to use the GoToDefinition 
+quite well using ccls.
 
 Only thing is, DO NOT install lsp servers for C++ or C via mason.
 

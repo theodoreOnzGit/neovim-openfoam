@@ -35,7 +35,7 @@ if openfoam_env_set then
 		vim.fn.system({
 			"mkdir",
 			"-p",
-			"$WM_PROJECT_DIR/nvim-config/share/nvim",
+			vim.fn.expand('$WM_PROJECT_DIR/nvim-config/share/nvim'),
 		})
 		-- git clone lazy
 		vim.fn.system({

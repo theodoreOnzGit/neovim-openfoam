@@ -1,108 +1,123 @@
--- first, don't use the regular config file
-vim.opt.runtimepath:remove(vim.fn.expand('~/.config/nvim'))
-vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim/site'))
-vim.opt.runtimepath:append(vim.fn.expand('./nvim-config'))
-vim.opt.packpath:append(vim.fn.expand('./nvim-config/packpath'))
+-- first i get the openfoam directory
+-- and check if it's set
+local openfoam_dir = vim.fn.expand('$WM_PROJECT_DIR')
+local openfoam_env_set = false
 
--- also don't use existing plugins 
-vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim'))
-vim.opt.runtimepath:remove(vim.fn.expand('~/.local/share/nvim'))
-
-
--- lazy plugin manager
--- note: for lazy on Arch Linux, please install via AUR as well,
--- it's easier...
--- here's the default lazypath
--- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local lazypath = vim.fn.expand('./nvim-config/share/nvim') .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	-- make a local datapath
-  vim.fn.system({
-    "mkdir",
-	"-p",
-    "./nvim-config/share/nvim",
-  })
-	-- git clone lazy
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+-- this part checks if the openfoam evnironment variable 
+-- has been set
+if openfoam_dir == '$WM_PROJECT_DIR' then
+	openfoam_env_set = false
+else
+	openfoam_env_set = true
 end
-vim.opt.rtp:prepend(lazypath)
--- lazy plugin manager options: changes the lazy plugin manager install directory 
--- to a different folder so you dont clash with an existing configuration
-local opts = {
-	root = vim.fn.expand('./nvim-config/share/nvim') .. "/lazy", 
-}
+
+if openfoam_env_set then
+
+	-- first, don't use the regular config file
+	vim.opt.runtimepath:remove(vim.fn.expand('~/.config/nvim'))
+	vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim/site'))
+	vim.opt.runtimepath:append(vim.fn.expand('$WM_PROJECT_DIR/nvim-config'))
+	vim.opt.packpath:append(vim.fn.expand('$WM_PROJECT_DIR/nvim-config/packpath'))
+
+	-- also don't use existing plugins 
+	vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim'))
+	vim.opt.runtimepath:remove(vim.fn.expand('~/.local/share/nvim'))
 
 
--- basic options
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.wrap = false
-
--- makes scrolling easier
-vim.opt.scrolloff = 5
-
--- for spelling
-vim.opt.spell = true
-vim.cmd("set spelllang=en_gb")
-
-
--- syntax
-vim.cmd([[
-syntax on
-filetype indent on
-filetype plugin indent on
-]])
-
--- enables vim-latex on all .tex files
-vim.cmd([[
-autocmd BufNewFile,BufRead *.tex set filetype=tex
-"autocmd BufNewFile,BufRead *.typ set filetype=typst
-]])
-
--- color column
-vim.cmd("set cc=75")
-
--- for NERDTree specifically
-vim.cmd([[
-let NERDTreeShowHidden=1
-]])
+	-- lazy plugin manager
+	-- note: for lazy on Arch Linux, please install via AUR as well,
+	-- it's easier...
+	-- here's the default lazypath
+	-- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+	local lazypath = vim.fn.expand('$WM_PROJECT_DIR/nvim-config/share/nvim') .. "/lazy/lazy.nvim"
+	if not vim.loop.fs_stat(lazypath) then
+		-- make a local datapath
+		vim.fn.system({
+			"mkdir",
+			"-p",
+			"$WM_PROJECT_DIR/nvim-config/share/nvim",
+		})
+		-- git clone lazy
+		vim.fn.system({
+			"git",
+			"clone",
+			"--filter=blob:none",
+			"https://github.com/folke/lazy.nvim.git",
+			"--branch=stable", -- latest stable release
+			lazypath,
+		})
+	end
+	vim.opt.rtp:prepend(lazypath)
+	-- lazy plugin manager options: changes the lazy plugin manager install directory 
+	-- to a different folder so you dont clash with an existing configuration
+	local opts = {
+		root = vim.fn.expand('$WM_PROJECT_DIR/nvim-config/share/nvim') .. "/lazy", 
+	}
 
 
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+	-- basic options
+	vim.opt.number = true
+	vim.opt.relativenumber = true
+	vim.opt.tabstop = 4
+	vim.opt.shiftwidth = 4
+	vim.opt.wrap = false
 
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+	-- makes scrolling easier
+	vim.opt.scrolloff = 5
+
+	-- for spelling
+	vim.opt.spell = true
+	vim.cmd("set spelllang=en_gb")
+
+
+	-- syntax
+	vim.cmd([[
+	syntax on
+	filetype indent on
+	filetype plugin indent on
+	]])
+
+	-- enables vim-latex on all .tex files
+	vim.cmd([[
+	autocmd BufNewFile,BufRead *.tex set filetype=tex
+	"autocmd BufNewFile,BufRead *.typ set filetype=typst
+	]])
+
+	-- color column
+	vim.cmd("set cc=75")
+
+	-- for NERDTree specifically
+	vim.cmd([[
+	let NERDTreeShowHidden=1
+	]])
+
+
+	-- disable netrw at the very start of your init.lua (strongly advised)
+	vim.g.loaded_netrw = 1
+	vim.g.loaded_netrwPlugin = 1
+
+	-- set termguicolors to enable highlight groups
+	vim.opt.termguicolors = true
 
 
 
-local plugins = {
+	local plugins = {
 
-    -- git gutter (may clash with ubuntu's existing git-gutter
-	-- if on linux mint)
-    -- use 'vim-scripts/vim-gitgutter'
-    'preservim/nerdtree',
-    'morhetz/gruvbox',
-	'williamboman/mason.nvim',
-	'williamboman/mason-lspconfig.nvim',
-	'neovim/nvim-lspconfig',
-	{'kaarmu/typst.vim', ft = {'typst'}},
-	{
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
-		dependencies = {
-			-- LSP Support
-			{                                      -- Optional
+		-- git gutter (may clash with ubuntu's existing git-gutter
+		-- if on linux mint)
+		-- use 'vim-scripts/vim-gitgutter'
+		'preservim/nerdtree',
+		'morhetz/gruvbox',
+		'williamboman/mason.nvim',
+		'williamboman/mason-lspconfig.nvim',
+		'neovim/nvim-lspconfig',
+		{'kaarmu/typst.vim', ft = {'typst'}},
+		{
+			'VonHeikemen/lsp-zero.nvim',
+			branch = 'v2.x',
+			dependencies = {
+				-- LSP Support
+				{                                      -- Optional
 				'williamboman/mason.nvim',
 			},
 
@@ -141,7 +156,7 @@ local plugins = {
 	-- harpoon 
 	'ThePrimeagen/harpoon',
 
-	
+
 	-- airline 
 	'vim-airline/vim-airline',
 	'vim-airline/vim-airline-themes',
@@ -158,10 +173,10 @@ local plugins = {
 	-- vim align (in the arch repos)
 	'junegunn/vim-easy-align',
 
-    -- ultisnips and snippets
+	-- ultisnips and snippets
 	'honza/vim-snippets',
-    'hrsh7th/vim-vsnip',
-    'hrsh7th/vim-vsnip-integ',
+	'hrsh7th/vim-vsnip',
+	'hrsh7th/vim-vsnip-integ',
 	'rafamadriz/friendly-snippets',
 
 	-- hop nvim 
@@ -211,7 +226,7 @@ nnoremap <leader>q <cmd>Telescope harpoon marks<cr>
 
 require("mason").setup()
 require("mason-lspconfig").setup{
-    ensure_installed = { "lua_ls" },
+	ensure_installed = { "lua_ls" },
 }
 
 -- lsp settings 
@@ -237,7 +252,7 @@ cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			 vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 			-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
 			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
 			--vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -333,3 +348,4 @@ end
 
 -- for ccls setup 
 require("./lua/ccls-setup")
+end

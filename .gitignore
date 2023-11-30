@@ -40,6 +40,9 @@ luac.out
 *.hex
 
 # packpath
-./nvim-config
+nvim-config/*
+nvim-config/*/*
+nvim-config/
+nvim-config
 .ccls-cache
 ./lazy

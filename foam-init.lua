@@ -15,7 +15,7 @@ vim.opt.packpath:append(vim.fn.expand('~/nvim-config/share/nvim'))
 -- it's easier...
 -- here's the default lazypath
 -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local lazypath = vim.fn.expand('~/nvim-config/share/nvim') .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.expand('./nvim-config/share/nvim') .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	-- make a local datapath
   vim.fn.system({
@@ -34,6 +34,11 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+-- lazy plugin manager options: changes the lazy plugin manager install directory 
+-- to a different folder so you dont clash with an existing configuration
+local opts = {
+	root = vim.fn.expand('./nvim-config/share/nvim') .. "/lazy", 
+}
 
 
 -- basic options
@@ -100,9 +105,6 @@ local plugins = {
 			-- LSP Support
 			{                                      -- Optional
 				'williamboman/mason.nvim',
-				run = function()
-					pcall(vim.cmd, 'MasonUpdate')
-				end,
 			},
 
 			-- Autocompletion from snippets
@@ -173,7 +175,10 @@ local plugins = {
 	-- ccls plugin 
 	'ranjithshegde/ccls.nvim',
 }
-local opts = {}
+
+
+
+
 
 
 vim.g.mapleader = "\\" -- Make sure to set `mapleader` before lazy so your mappings are correct
@@ -195,7 +200,11 @@ nnoremap <leader>q <cmd>Telescope harpoon marks<cr>
 ]])
 
 -- Mason Lsp Setup manager (must load after lazy plugins start)
-require("mason").setup()
+-- also change the install directory to a different folder so we don't 
+-- clash with local mason setups
+require("mason").setup({
+    install_root_dir = vim.fn.expand('./nvim-config/share/nvim') .. "/mason",
+})
 require("mason-lspconfig").setup()
 
 -- lsp settings 

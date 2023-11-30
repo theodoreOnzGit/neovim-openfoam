@@ -201,14 +201,18 @@ nnoremap <leader>q <cmd>Telescope harpoon marks<cr>
 -- Mason Lsp Setup manager (must load after lazy plugins start)
 -- also change the install directory to a different folder so we don't 
 -- clash with local mason setups
-require("mason").setup({
-    install_root_dir = vim.fn.expand('./nvim-config/share/nvim') .. "/mason",
-})
+-- require("mason").setup({
+--     install_root_dir = vim.fn.expand('./nvim-config/share/nvim') .. "/mason",
+-- })
+-- vim.opt.runtimepath:append(vim.fn.expand('./nvim-config/share/nvim') .. "/mason")
+-- vim.opt.packpath:append(vim.fn.expand('./nvim-config/share/nvim') .. "/mason")
+--
+-- Nevermind, I'll let mason use the regular configured lsp servers...
+
+require("mason").setup()
 require("mason-lspconfig").setup{
     ensure_installed = { "lua_ls" },
 }
-vim.opt.runtimepath:append(vim.fn.expand('./nvim-config/share/nvim') .. "/mason")
-vim.opt.packpath:append(vim.fn.expand('./nvim-config/share/nvim') .. "/mason")
 
 -- lsp settings 
 local lsp = require('lsp-zero').preset({})

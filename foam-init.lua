@@ -4,11 +4,26 @@ vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim/site'))
 vim.opt.runtimepath:append(vim.fn.expand('./nvim-config'))
 vim.opt.packpath:append(vim.fn.expand('./nvim-config/packpath'))
 
+-- also don't use existing plugins 
+vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim'))
+vim.opt.runtimepath:remove(vim.fn.expand('~/.local/share/nvim'))
+vim.opt.packpath:append(vim.fn.expand('~/nvim-config/share/nvim'))
+
+
 -- lazy plugin manager
 -- note: for lazy on Arch Linux, please install via AUR as well,
 -- it's easier...
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- here's the default lazypath
+-- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.expand('~/nvim-config/share/nvim') .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
+	-- make a local datapath
+  vim.fn.system({
+    "mkdir",
+	"-p",
+    "./nvim-config/share/nvim",
+  })
+	-- git clone lazy
   vim.fn.system({
     "git",
     "clone",
@@ -153,7 +168,10 @@ local plugins = {
 		'smoka7/hop.nvim',
 		version = '*',
 		opts = {},
-	}
+	},
+
+	-- ccls plugin 
+	'ranjithshegde/ccls.nvim',
 }
 local opts = {}
 

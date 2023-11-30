@@ -14,23 +14,8 @@ else
 	source $WM_PROJECT_DIR/etc/bashrc
 fi
 
-#echo "copy_nvimconfig_to_openfoam: copies the nvim config files
-#to openfoam"
-
-copy_nvimconfig_to_openfoam() {
-	rm $WM_PROJECT_DIR/foam-init.lua
-	rm -r $WM_PROJECT_DIR/lua
-	rm $WM_PROJECT_DIR/setup.sh
-	rm $WM_PROJECT_DIR/nvfoam.sh
-	cp foam-init.lua $WM_PROJECT_DIR
-	cp -r ./lua/ $WM_PROJECT_DIR
-	cp nvfoam.sh $WM_PROJECT_DIR
-}
-
-
 if $openfoam_env_set 
 then
-	copy_nvimconfig_to_openfoam
 	nvfoam() {
 		cd $WM_PROJECT_DIR && nvim -u $WM_PROJECT_DIR/foam-init.lua $WM_PROJECT_DIR/README.md
 	}

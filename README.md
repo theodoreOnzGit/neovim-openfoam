@@ -14,6 +14,7 @@ DO NOT CLICK ANY HYPERLINK)
 Though, I saw no one do the same for neovim and OpenFOAM, so I decided 
 to do one up myself since I use neovim so often.
 
+
 ## Dependencies 
 
 You will of course, need neovim along with a suite of plugins for this 
@@ -40,6 +41,15 @@ Optional:
 Tmux is super convenient to use for terminal users:
 ```bash
 sudo pacman -S tmux
+```
+
+## tl;dr
+
+If you just want neovim openfoam set up as is, run in this 
+directory:
+
+```bash
+nvim -u ./foam-init.lua
 ```
 
 ## Setting Up Neovim with Two or More Config Files
@@ -89,4 +99,4 @@ vim.opt.rtp:prepend(lazypath)
 ```
 
 Then set up neovim as per normal. Instructions for step 1 are 
-[here](./step_1_basic_setup/README.md).
+[here](./step_1_basic_setup).

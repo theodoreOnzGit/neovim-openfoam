@@ -28,6 +28,15 @@ local function compilationDatabaseDirectory()
 	return compile_dir;
 end
 
+local function openfoam_root_dir()
+	return vim.fn.expand('$WM_PROJECT_DIR')
+end
+
+-- local function defaultCompileCommands()
+-- 	/run/media/sambaSharedFolder/guest/youTube/openfoam/etc/openfoam wmake -with-bear -s -j
+-- end
+
+
 if openfoam_env_set then
 	print("openfoam environment set, setting up ccls openfoam server")
 	local cache_dir_name = cacheDirName()
@@ -40,9 +49,10 @@ if openfoam_env_set then
 				cmd = {"/usr/bin/ccls"}, -- point to your binary, has to be a table
 				args = {--[[Any args table]] },
 				offset_encoding = "utf-32", -- default value set by plugin
-				root_dir = vim.fs.dirname(vim.fs.find({ "compile_commands.json", ".git" }, { upward = true })[1]), -- or some other function that returns a string
+				root_dir = compile_dir_name, -- or some other function that returns a string
 				--on_attach = your_func,
 				--capabilites = your_table/func
+				cache = cache_dir_name,
 			},
 		},
 	}

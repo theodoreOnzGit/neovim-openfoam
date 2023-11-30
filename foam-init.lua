@@ -332,10 +332,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- colorscheme
 vim.cmd([[
-"colorscheme gruvbox
-"set background=dark
+colorscheme gruvbox
+set background=dark
 "colorscheme flexoki-dark
-colorscheme tokyonight-storm
+"colorscheme tokyonight-storm
 let g:airline_theme='dark'
 set cc=75
 ]])

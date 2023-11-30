@@ -21,3 +21,4 @@ then
 	}
 	echo "use nvfoam to start neovim in openfoam environment"
 fi
+nvfoam

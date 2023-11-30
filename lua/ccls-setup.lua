@@ -50,9 +50,11 @@ if openfoam_env_set then
 				args = {--[[Any args table]] },
 				offset_encoding = "utf-32", -- default value set by plugin
 				root_dir = compile_dir_name, -- or some other function that returns a string
+				init_options = {
+					cache = { cache_dir_name, },
+				},
 				--on_attach = your_func,
 				--capabilites = your_table/func
-				cache = cache_dir_name,
 			},
 		},
 	}

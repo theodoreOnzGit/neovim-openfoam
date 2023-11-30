@@ -6,14 +6,24 @@
 local openfoam_dir = vim.fn.expand('$WM_PROJECT_DIR')
 local openfoam_env_set = false
 
+-- this part checks if the openfoam evnironment variable 
+-- has been set
 if openfoam_dir == '$WM_PROJECT_DIR' then
 	openfoam_env_set = false
 else
 	openfoam_env_set = true
 end
+-- define important functions first
+local function cacheDirName()
+	-- note, the .. Concatenates strings
+	local name = vim.fn.expand('$WM_PROJECT_DIR') .. 'build' .. vim.fn.expand('$WM_OPTIONS')
+	print("cache dir: ", name)
+	return name;
+end
 
 if openfoam_env_set then
 	print("openfoam environment set, setting up ccls openfoam server")
+	local cache_dir_name = cacheDirName()
 	require("ccls").setup {
 		lsp = {
 			-- check :help vim.lsp.start for config options

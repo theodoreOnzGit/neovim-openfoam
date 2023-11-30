@@ -17,7 +17,7 @@ fi
 if $openfoam_env_set 
 then
 	nvfoam() {
-		cd $WM_PROJECT_DIR && nvim -u $WM_PROJECT_DIR/foam-init.lua $WM_PROJECT_DIR/README.md
+		cd $WM_PROJECT_DIR && nvim -u $WM_PROJECT_DIR/foam-init.lua 
 	}
 	echo "use nvfoam to start neovim in openfoam environment"
 fi

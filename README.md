@@ -53,6 +53,14 @@ directory:
 ```bash
 nvim -u ./foam-init.lua
 ```
+Or you can just use the setup script 
+
+```bash
+source setup.sh
+```
+
+It's not 100% working yet, my ccls cache directories are not 
+set correctly
 
 Only thing is, DO NOT install lsp servers for C++ or C via mason.
 

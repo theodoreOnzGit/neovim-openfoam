@@ -12,12 +12,10 @@ else
 	openfoam_env_set=true
 	# source it again to be safe
 	source $WM_PROJECT_DIR/etc/bashrc
-	echo "openfoam env set"
-
 fi
 
-echo "copy_nvimconfig_to_openfoam: copies the nvim config files
-to openfoam"
+#echo "copy_nvimconfig_to_openfoam: copies the nvim config files
+#to openfoam"
 
 copy_nvimconfig_to_openfoam() {
 	rm $WM_PROJECT_DIR/foam-init.lua
@@ -26,12 +24,12 @@ copy_nvimconfig_to_openfoam() {
 	cp -r ./lua/ $WM_PROJECT_DIR
 }
 
-nvfoam() {
-	nvim -u $WM_PROJECT_DIR/foam-init.lua $WM_PROJECT_DIR
-}
 
 if $openfoam_env_set 
 then
 	copy_nvimconfig_to_openfoam
-	echo "nvim ready for use, just type nvfoam"
+	nvfoam() {
+		nvim -u $WM_PROJECT_DIR/foam-init.lua $WM_PROJECT_DIR/README.md
+	}
+	echo "use nvfoam to start neovim in openfoam environment"
 fi

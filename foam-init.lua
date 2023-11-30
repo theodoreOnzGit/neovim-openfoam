@@ -317,6 +317,7 @@ vim.cmd([[
 colorscheme gruvbox
 set background=dark
 let g:airline_theme='dark'
+set cc=75
 ]])
 
 -- hop nvim
